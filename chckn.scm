@@ -2,6 +2,7 @@
 
 (define EGG 0)
 (define CHICKEN 1)
+(define CHICKENEGG 10)
 
 (define _CHICKEN (vector
                    "CHICKEN"
@@ -25,12 +26,12 @@
   (print eggs))
 
 (define (cluck args)
-  (when (= (length args) EGG)
-    EGG)
-  (let ((arg-chicken (string->number (list-ref args EGG))))
+  (let ((arg-chicken (if (= (length args) EGG)
+                         CHICKENEGG
+                         (string->number (list-ref args EGG)))))
     (if (eq? arg-chicken #f)
         (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
-        arg-chicken)))
+        (- arg-chicken CHICKEN))))
 
 (define (main args)
   (let ((arg-chicken (cluck args)))
