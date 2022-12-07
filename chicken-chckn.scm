@@ -3,7 +3,7 @@
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
-(define-constant CHICKENEGG 10)
+(define-constant SCRAMBLED-EGGS 10)
 
 (define-constant CHICKENS (vector
                    "CHICKEN"
@@ -17,12 +17,11 @@
                    "\"Chicken\""
                    "chicken"
                    "(Chicken)"
-                   "chicken"
-                   ))
+                   "chicken"))
 
 (define (cluck)
   (let* ((chick (vector-length CHICKENS))
-	 (cheep (pseudo-random-integer chick)))
+         (cheep (pseudo-random-integer chick)))
     (vector-ref CHICKENS cheep)))
 
 (define (roost eggs)
@@ -34,16 +33,16 @@
 (define (chckn chickens)
   (+ chickens CHICKEN))
 
-(define (lay argchicken)
-  (let ((egg (if (= (length argchicken) EGG)
-                         CHICKENEGG
-                         (string->number (list-ref argchicken EGG)))))
+(define (lay chicken-args)
+  (let ((egg (if (= (length chicken-args) EGG)
+                         SCRAMBLED-EGGS
+                         (string->number (car chicken-args)))))
     (if (eq? egg #f)
         (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
         (- egg CHICKEN))))
 
-(define (chicken argchicken)
-  (let* ((eggs (lay argchicken))
+(define (chicken chicken-args)
+  (let* ((eggs (lay chicken-args))
          (chickens (roost eggs)))
     (print* "Chicken")
     (for-each (lambda (chicken)
