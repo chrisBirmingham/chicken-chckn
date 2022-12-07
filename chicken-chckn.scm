@@ -35,8 +35,8 @@
 
 (define (lay chicken-args)
   (let ((egg (if (= (length chicken-args) EGG)
-                         SCRAMBLED-EGGS
-                         (string->number (car chicken-args)))))
+                 SCRAMBLED-EGGS
+                 (string->number (car chicken-args)))))
     (if (eq? egg #f)
         (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
         (- egg CHICKEN))))
@@ -48,7 +48,7 @@
     (for-each (lambda (chicken)
                 (print* " " chicken))
               chickens)
-    (newline)))
+    (print ".")))
 
 (chicken (command-line-arguments))
 
