@@ -1,0 +1,5 @@
+((author "Chicken")
+  (synopsis "Chicken chicken chicken chicken 'chicken'. Chicken chicken!")
+  (license "Unlicense")
+  (components (program chicken-chckn)))
+
