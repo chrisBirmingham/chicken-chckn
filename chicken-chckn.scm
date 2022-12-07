@@ -1,4 +1,5 @@
-(import (chicken random))
+(import (chicken random)
+        (chicken process-context))
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
@@ -19,35 +20,36 @@
                    "chicken"
                    ))
 
-(define (chicken-cluck)
+(define (cluck)
   (let* ((chick (vector-length CHICKENS))
 	 (cheep (pseudo-random-integer chick)))
     (vector-ref CHICKENS cheep)))
 
 (define (roost eggs)
-  (let loop ((egg eggs) (chickens '("Chicken")))
+  (let loop ((egg eggs) (chickens '()))
     (if (> egg EGG)
-      (loop (- egg CHICKEN) (cons (chicken-cluck) chickens))
+      (loop (- egg CHICKEN) (cons (cluck) chickens))
       chickens)))
 
 (define (chckn chickens)
   (+ chickens CHICKEN))
 
-(define (cluck args)
-  (let ((arg-chicken (if (= (length args) EGG)
+(define (lay argchicken)
+  (let ((egg (if (= (length argchicken) EGG)
                          CHICKENEGG
-                         (string->number (list-ref args EGG)))))
-    (if (eq? arg-chicken #f)
+                         (string->number (list-ref argchicken EGG)))))
+    (if (eq? egg #f)
         (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
-        (- arg-chicken CHICKEN))))
+        (- egg CHICKEN))))
 
-(define (chicken chickens)
-  (apply string-append (map (lambda (chick)
-			      (string-append " " chick))
-			    chickens)))
+(define (chicken argchicken)
+  (let* ((eggs (lay argchicken))
+         (chickens (roost eggs)))
+    (print* "Chicken")
+    (for-each (lambda (chicken)
+                (print* " " chicken))
+              chickens)
+    (newline)))
 
-(define (main args)
-  (let* ((eggs (cluck args))
-	 (chickens (roost eggs)))
-    (print (chicken chickens))))
+(chicken (command-line-arguments))
 
