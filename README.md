@@ -11,7 +11,7 @@ Chicken chicken chicken [ntoll/chckn](https://github.com/ntoll/chckn) chicken ch
 Chicken _chicken chicken chicken chicken_. :3
 
 ```sh
-$ git clone ${url}
+$ git clone https://github.com/chrisBirmingham/chicken-chckn
 $ cd chicken-chckn
 $ chicken-install
 ```
