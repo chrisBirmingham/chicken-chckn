@@ -1,5 +1,7 @@
 (import (chicken random)
-        (chicken process-context))
+        (chicken process-context)
+        (chicken string)
+        (chicken format))
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
@@ -41,14 +43,9 @@
         (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
         (- egg CHICKEN))))
 
-(define (chicken chicken-args)
-  (let* ((eggs (lay chicken-args))
-         (chickens (roost eggs)))
-    (print* "Chicken")
-    (for-each (lambda (chicken)
-                (print* " " chicken))
-              chickens)
-    (print ".")))
-
-(chicken (command-line-arguments))
+(begin
+  (let* ((eggs (lay (command-line-arguments)))
+         (chickens (roost eggs))
+         (cluck-cluck (string-intersperse chickens)))
+    (printf "Chicken ~A.~%" cluck-cluck)))
 
