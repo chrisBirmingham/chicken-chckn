@@ -1,4 +1,4 @@
-chicken-chckn
-chicken-chckn.build.sh
-chicken-chckn.install.sh
+chckn
+*.build.sh
+*.install.sh
 
