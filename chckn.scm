@@ -1,12 +1,11 @@
 (import (chicken random)
         (chicken process-context)
         (chicken string)
-        (chicken format))
+        (chicken format)
+        (chicken condition))
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
-(define-constant SCRAMBLED-EGGS 10)
-
 (define-constant CHICKENS (vector
                    "CHICKEN"
                    "chicken"
@@ -36,12 +35,12 @@
   (+ chickens CHICKEN))
 
 (define (lay chicken-args)
-  (let ((egg (if (= (length chicken-args) EGG)
-                 SCRAMBLED-EGGS
-                 (string->number (car chicken-args)))))
-    (if (eq? egg #f)
-        (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
-        (- egg CHICKEN))))
+  (let ((egg (handle-exceptions exe
+                                (begin #f)
+                                (string->number (car chicken-args)))))
+    (cond
+      ((eq? #f egg) (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG))))))))))
+      (else (- egg CHICKEN)))))
 
 (begin
   (let* ((eggs (lay (command-line-arguments)))
