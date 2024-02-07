@@ -13,7 +13,8 @@ Chicken _chicken chicken chicken chicken_. :3
 ```commandline
 $ git clone https://github.com/chrisBirmingham/chicken-chckn
 $ cd chicken-chckn
-$ chicken-install
+$ make
+$ [sudo] make install
 ```
 
 Chicken chicken, chicken chicken chicken chicken.
