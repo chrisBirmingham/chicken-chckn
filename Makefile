@@ -1,14 +1,20 @@
-EXE=chckn
-.PHONY: all install clean
+.PHONY: all install clean uninstall
 
-all: $(EXE)
+PROG=chckn
+PREFIX?=/usr/local
+BINDIR=$(PREFIX)/bin
 
-$(EXE): chckn.scm
+all: $(PROG)
+
+$(PROG): chckn.scm
 	chicken-install -n
 
-install: $(EXE)
+install: $(PROG)
 	chicken-install
 
 clean:
-	rm $(EXE) $(EXE).build.sh $(EXE).install.sh
+	rm -f $(PROG) $(PROG).build.sh $(PROG).install.sh
+
+uninstall:
+	rm -f$(BINDIR)/$(PROG)
 

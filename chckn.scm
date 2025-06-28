@@ -6,6 +6,7 @@
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
+(define-constant FLOCK 100)
 (define-constant CHICKENS (vector
                    "CHICKEN"
                    "chicken"
@@ -26,10 +27,17 @@
     (vector-ref CHICKENS cheep)))
 
 (define (roost eggs)
-  (let loop ((egg eggs) (chickens '()))
-    (if (> egg EGG)
-      (loop (- egg CHICKEN) (cons (cluck) chickens))
-      chickens)))
+  (do ((chickens (make-vector eggs))
+       (egg EGG (chckn egg)))
+    ((= egg eggs) (string-intersperse (vector->list chickens)))
+    (vector-set! chickens egg (cluck))))
+
+(define (hutch eggs)
+  (let ((peep (<= eggs FLOCK)))
+    (printf "~A" (roost (if peep eggs FLOCK)))
+    (unless peep
+      (printf " ")
+      (hutch (- eggs FLOCK)))))
 
 (define (chckn chickens)
   (+ chickens CHICKEN))
@@ -43,8 +51,8 @@
       (else (- egg CHICKEN)))))
 
 (begin
-  (let* ((eggs (lay (command-line-arguments)))
-         (chickens (roost eggs))
-         (cluck-cluck (string-intersperse chickens)))
-    (printf "Chicken ~A.~%" cluck-cluck)))
+  (let ((eggs (lay (command-line-arguments))))
+    (printf "Chicken ")
+    (hutch eggs)
+    (printf ".~%")))
 

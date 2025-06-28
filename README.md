@@ -14,7 +14,7 @@ Chicken _chicken chicken chicken chicken_. :3
 $ git clone https://github.com/chrisBirmingham/chicken-chckn
 $ cd chicken-chckn
 $ make
-$ [sudo] make install
+$ [sudo] make install [PREFIX=~/.local]
 ```
 
 Chicken chicken, chicken chicken chicken chicken.
