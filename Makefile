@@ -10,7 +10,8 @@ $(PROG): chckn.scm
 	chicken-install -n
 
 install: $(PROG)
-	chicken-install
+	mkdir -p $(BINDIR)
+	cp $(PROG) $(BINDIR)
 
 clean:
 	rm -f $(PROG) $(PROG).build.sh $(PROG).install.sh
