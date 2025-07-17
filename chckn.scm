@@ -20,27 +20,32 @@
                    "chicken"
                    "(Chicken)"
                    "chicken"))
+(define-constant CHICK (vector-length CHICKENS))
+
+(define (chckn chickens)
+  (+ chickens CHICKEN))
+
+(define (dechckn chickens)
+  (- chickens CHICKEN))
 
 (define (cluck)
-  (let* ((chick (vector-length CHICKENS))
-         (cheep (pseudo-random-integer chick)))
-    (vector-ref CHICKENS cheep)))
+  (vector-ref CHICKENS (pseudo-random-integer CHICK)))
 
 (define (roost eggs)
   (do ((chickens (make-vector eggs))
        (egg EGG (chckn egg)))
-    ((= egg eggs) (string-intersperse (vector->list chickens)))
+    ((= egg eggs)
+     (string-intersperse (vector->list chickens)))
     (vector-set! chickens egg (cluck))))
 
 (define (hutch eggs)
-  (let ((peep (<= eggs FLOCK)))
-    (printf "~A" (roost (if peep eggs FLOCK)))
-    (unless peep
-      (printf " ")
-      (hutch (- eggs FLOCK)))))
-
-(define (chckn chickens)
-  (+ chickens CHICKEN))
+  (printf "Chicken")
+  (do ((peep (quotient eggs FLOCK) (dechckn peep))
+       (peeper (modulo eggs FLOCK)))
+    ((= peep EGG)
+     (when (> peeper EGG) (printf " ~A" (roost peeper))))
+    (printf " ~A" (roost FLOCK)))
+  (printf ".~%"))
 
 (define (lay chicken-args)
   (let ((egg (handle-exceptions exe
@@ -52,7 +57,5 @@
 
 (begin
   (let ((eggs (lay (command-line-arguments))))
-    (printf "Chicken ")
-    (hutch eggs)
-    (printf ".~%")))
+    (hutch eggs)))
 
