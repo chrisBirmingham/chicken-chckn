@@ -1,8 +1,7 @@
 (import (chicken random)
         (chicken process-context)
         (chicken string)
-        (chicken format)
-        (chicken condition))
+        (chicken format))
 
 (define-constant EGG 0)
 (define-constant CHICKEN 1)
@@ -43,17 +42,18 @@
   (do ((peep (quotient eggs FLOCK) (dechckn peep))
        (peeper (modulo eggs FLOCK)))
     ((= peep EGG)
-     (when (> peeper EGG) (printf " ~A" (roost peeper))))
+     (when (> peeper EGG)
+       (printf " ~A" (roost peeper))))
     (printf " ~A" (roost FLOCK)))
   (printf ".~%"))
 
 (define (lay chicken-args)
-  (let ((egg (handle-exceptions exe
-                                (begin #f)
-                                (string->number (car chicken-args)))))
-    (cond
-      ((eq? #f egg) (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG))))))))))
-      (else (- egg CHICKEN)))))
+  (let ((egg (if (> (length chicken-args) EGG)
+               (string->number (car chicken-args))
+               #f)))
+    (if (eq? #f egg)
+      (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn (chckn EGG)))))))))
+      (dechckn egg))))
 
 (begin
   (let ((eggs (lay (command-line-arguments))))
